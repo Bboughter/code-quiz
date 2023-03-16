@@ -5,9 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Document</title>
+    <title>Code Quiz</title>
 </head>
 <body>
+    <header>
+        <button class="high-score" id="high-score">Highscores</button>
+        <div>Time Remaining:<span id="timer"></span></div>
+    </header>
+    <div>
+    <h1>Coding Quiz Challenge</h1>
+    <p>Do you have what it takes? Try to answer all the code related questions before the timer runs out.
+        If you answer incorrectly, you will not only lose time but you will lose points for your final score.
+        Your final score will be the amount of time left on the timer. The higher the better.
+    </p>
+    <button id="start-button">Start</button>
+    </div>
+    <h2 id="countdown"></h2>
+    <div class="container" id="container"></div>
+    <div id="answer"></div>
     <script src="./script.js"></script>
 </body>
 </html>
