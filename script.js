@@ -56,6 +56,7 @@ var currentQuestionIndex;
 
 startButton.addEventListener('click', startGame)
 function timer() {
+    timerEl.textContent = 'Time Remaining: ' + timeLeft;
     timerEl = setInterval(function () {
         if (timeLeft > 0) {
             timeAdjustment(-1);
@@ -71,32 +72,31 @@ function timeAdjustment(amount) {
     }
     timerEl.textContent = 'Time Remaining: ' + timeLeft;
 }
-clickStart.onclick = timer;
+startButton.onclick = timer;
 function startGame() {
     startButton.classList.add('hide');
-    // questionContainerEl.classList.remove('hide');
     shuffledQuestions = questions.sort(() => Math.random() - .5);
     currentQuestionIndex = 0;
     nextQuestion();
 }
 
-function nextQuestion() {
-    showQuestion(shuffledQuestions[currentQuestionIndex])
+// function nextQuestion() {
+//     showQuestion(shuffledQuestions[currentQuestionIndex])
 
-}
-function showQuestion(questions) {
-    questionElement.innerText = questions.questions;
-    questions.answers.forEach(answer => {
-        var button = document.createElement('button');
-        button.innerText = answer.text;
-        button.classList.add('btn');
-        if (answer.correct) {
-            button.dataset.correct = answer.correct;
-        }
-        button.addEventListener('click', selectedAnswer);
-        answerButtonEl.appendChild(button)
-    })
-}
+// }
+// function showQuestion(questions) {
+//     questionElement.innerText = questions.questions;
+//     questions.answers.forEach(answer => {
+//         var button = document.createElement('button');
+//         button.innerText = answer.text;
+//         button.classList.add('btn');
+//         if (answer.correct) {
+//             button.dataset.correct = answer.correct;
+//         }
+//         button.addEventListener('click', selectedAnswer);
+//         answerButtonEl.appendChild(button)
+//     })
+// }
 function resetState() {
     nextButton.classList.add('hide')
     while (answerButtonEl.firstChild) {
