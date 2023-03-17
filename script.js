@@ -51,7 +51,7 @@ var startButton = document.getElementById("start-button");
 var startQuiz = document.querySelector(".start");
 var timerEl = document.getElementById("timer");
 var timeLeft = 60;
-var quizContainerEl = document.querySelector('.quiz-container');
+var quizContainerEl = document.querySelector('#quiz-container');
 var timerCount;
 var shuffledQuestions;
 var currentQuestionIndex = 0;
@@ -81,7 +81,7 @@ function startPage() {
 }
  
 {
-    document.querySelector('.quiz-container').style.display = "block";
+    quizContainerEl.style.display = "block";
     quizContainerEl.innerHTML = '';
     var questionHeader = document.createElement("h2");
     questionHeader.textContent = questions.question;
@@ -140,7 +140,7 @@ var test = function (event) {
 }
  function resetDisplay() {
     quizContainerEl.innerHTML="";
-    startPage.setAttribute('style', 'display: none');
+    document.querySelector('.start').style.display='none';
  }
 
  var initials = '';
