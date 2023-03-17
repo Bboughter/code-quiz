@@ -51,19 +51,15 @@ var startButton = document.getElementById("start-button");
 var startQuiz = document.querySelector(".start");
 var timerEl = document.getElementById("timer");
 var timeLeft = 60;
-var quizContainerEl = document.querySelector('#quiz-container');
+var quizContainerEl = document.querySelector('.btn-grid');
 var timerCount;
 var shuffledQuestions;
 var currentQuestionIndex;
 
 startButton.addEventListener('click', startGame);
-function startGame() {
-    
-    startButton.setAttribute('style', 'display:none');
-    quizContainerEl.setAttribute('style', 'display:content');
-    startQuiz.setAttribute('style','display:none')
-}
-var startTimer = setInterval (() =>{
+
+
+function startTimer() { setInterval (() =>{
     timerEl.textContent = 'Time remaining:' + timeLeft;
     timeLeft--;
 
@@ -73,4 +69,10 @@ var startTimer = setInterval (() =>{
         endGame();
     }
     }, 1000);
-// startButton.addEventListener('click', startGame)
+}
+function startGame() {
+      
+    startButton.setAttribute('style', 'display:none');
+    startQuiz.setAttribute('style','display:none')
+    startTimer();
+}
