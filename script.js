@@ -48,78 +48,34 @@ var questions = [{
 }
 ];
 var startButton = document.getElementById("start-button");
+var startQuiz = document.querySelector(".start");
 var timerEl = document.getElementById("timer");
 var timeLeft = 60;
-var questionContainerEl = document.getElementById('question-container');
+var questionContainerEl = document.querySelector('#quiz-container');
+var timerCount;
 var shuffledQuestions;
 var currentQuestionIndex;
 
-startButton.addEventListener('click', startGame)
-function timer() {
-    timerEl.textContent = 'Time Remaining: ' + timeLeft;
-    timerEl = setInterval(function () {
-        if (timeLeft > 0) {
-            timeAdjustment(-1);
-        } else {
-            endQuiz();
+function startPage() {
+    currentQuestionIndex = 0;
+    start.setAttribute('style','display:content');
+    startButton.setAttribute('style', 'display:none');
+
+    startTimer();
+    startGame();
+   }
+
+function startTimer () {
+    timerInterval=setInterval(function() {
+        timerCount--;
+        timerEl.textContent = timerCount;
+        if (timerCount === 0) {
+            endGame();
         }
     }, 1000);
 }
-function timeAdjustment(amount) {
-    timeLeft += amount;
-    if (timeLeft < 0) {
-        timeLeft = 0;
-    }
-    timerEl.textContent = 'Time Remaining: ' + timeLeft;
-}
-startButton.onclick = timer;
+
 function startGame() {
-    startButton.classList.add('hide');
-    shuffledQuestions = questions.sort(() => Math.random() - .5);
-    currentQuestionIndex = 0;
-    nextQuestion();
+    
 }
-
-// function nextQuestion() {
-//     showQuestion(shuffledQuestions[currentQuestionIndex])
-
-// }
-// function showQuestion(questions) {
-//     questionElement.innerText = questions.questions;
-//     questions.answers.forEach(answer => {
-//         var button = document.createElement('button');
-//         button.innerText = answer.text;
-//         button.classList.add('btn');
-//         if (answer.correct) {
-//             button.dataset.correct = answer.correct;
-//         }
-//         button.addEventListener('click', selectedAnswer);
-//         answerButtonEl.appendChild(button)
-//     })
-// }
-function resetState() {
-    nextButton.classList.add('hide')
-    while (answerButtonEl.firstChild) {
-        answerButtonEl.removeChild(answerButtonEl.firstChild)
-    }
-}
-function selectedAnswer() {
-    var selectedButton = e.target;
-    var correct = selectedButton.dataset.correct;
-    setStatusClass(document.body, correct);
-    Array.from(answerButtonEl.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
-}
-function setStatusClass() {
-    clearStatusClass(element)
-    if (correct) {
-        element.classList.add('correct')
-    } else {
-        element.classList.add('wrong')
-    }
-}
-function clearStatusClass(element) {
-    element.classList.remove('correct')
-    element.classList.remove('wrong')
-}
+startButton.addEventListener('click', startGame)
