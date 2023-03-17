@@ -159,6 +159,7 @@ function endGame() {
     clearInterval()
 }
 var endingPage = document.createElement('h2');
+
 var empty = document.getElementById('answer-determination');
 empty.appendChild(endingPage);
 answerDetermination.innerHTML = "";
@@ -177,4 +178,12 @@ var storeData = (...input) => {
     var data = JSON.stringify("name:", input[0], "score:", input[1])
     localStorage.setItem('object', data);
 }
+storeData(initialsInput.value, userScore);
 
+var playAgain = document.createElement('button');
+playAgain.textContent='Play Again?';
+empty.appendChild(playAgain);
+
+playAgain.addEventListener('click', () => {
+    location.reload();
+});
