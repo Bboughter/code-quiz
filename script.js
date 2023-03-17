@@ -4,7 +4,7 @@ var questions = [{
     b: "2. Hyper Tool Markup List",
     c: "3. Hungry Total Meat Lover",
     d: "4. Hyper Text Manager Language",
-    correct: "Hyper Text Markup Language",
+    correct: "1. Hyper Text Markup Language",
 },
 {
     question: "Choose the correct HTML element to define important text.",
@@ -12,7 +12,7 @@ var questions = [{
     b: "2. <massive>",
     c: "3. <strong>",
     d: "4. <hulk>",
-    correct: "<strong>",
+    correct: "3. <strong>",
 },
 {
     question: "The *[asterik symbol] is called",
@@ -20,7 +20,7 @@ var questions = [{
     b: "2. Universal Selector",
     c: "3. General Selector",
     d: "4. Star",
-    correct: "Universal Selector",
+    correct: "2. Universal Selector",
 },
 {
     question: "Which code removes the underline from links?",
@@ -28,7 +28,7 @@ var questions = [{
     b: "2. text-decoration: none",
     c: "3. text-decoration: hide",
     d: "4. text-underline: none",
-    correct: "text-decoration: none",
+    correct: "2. text-decoration: none",
 },
 {
     question: "How do you write 'Hello World!' in an alert box?",
@@ -36,7 +36,7 @@ var questions = [{
     b: "2. alertBox('Hello World!')",
     c: "3. noticeMe('Hello World!')",
     d: "4. alert('Hello World!')",
-    correct: "alert('Hello World!')",
+    correct: "4. alert('Hello World!')",
 },
 {
     question: "How do you declare a JavaScript variable?",
@@ -44,7 +44,7 @@ var questions = [{
     b: "2. v carName",
     c: "3. variable carName",
     d: "4. create carName",
-    correct: "var carName",
+    correct: "1. var carName",
 }
 ];
 var startButton = document.getElementById("start-button");
@@ -57,12 +57,41 @@ var shuffledQuestions;
 var currentQuestionIndex = 0;
 var userScore = 0;
 
+function adjustTime(time) {
+    timeLeft += time;
+}
+
 function startPage() {
 
     startButton.setAttribute('style', 'display:none');
     startQuiz.setAttribute('style', 'display:none')
 
     startTimer();
+    showQuestion();
+    // quizContainerEl.style.display = "block";
+    // quizContainerEl.innerHTML = '';
+    // var questionHeader = document.createElement("h2");
+    // questionHeader.textContent = questions[currentQuestionIndex].question;
+    // var answerA = document.createElement('button');
+    // answerA.textContent = questions[currentQuestionIndex].a;
+    // answerA.addEventListener('click', answerClick);
+    // var answerB = document.createElement('button');
+    // answerB.textContent = questions[currentQuestionIndex].b;
+    // answerB.addEventListener('click', answerClick);
+    // var answerC = document.createElement('button');
+    // answerC.textContent = questions[currentQuestionIndex].c;
+    // answerC.addEventListener('click', answerClick);
+    // var answerD = document.createElement('button');
+    // answerD.textContent = questions[currentQuestionIndex].d;
+    // answerD.addEventListener('click', answerClick);
+
+    // quizContainerEl.appendChild(questionHeader);
+    // quizContainerEl.appendChild(answerA);
+    // quizContainerEl.appendChild(answerB);
+    // quizContainerEl.appendChild(answerC);
+    // quizContainerEl.appendChild(answerD);
+}
+function showQuestion() {
     quizContainerEl.style.display = "block";
     quizContainerEl.innerHTML = '';
     var questionHeader = document.createElement("h2");
@@ -86,12 +115,11 @@ function startPage() {
     quizContainerEl.appendChild(answerC);
     quizContainerEl.appendChild(answerD);
 }
-
 function startTimer() {
-    setInterval(() => {
+    setInterval(function()  {
         timerEl.textContent = 'Time remaining:' + timeLeft;
         timeLeft--;
-
+console.log(timeLeft);
         if (timeLeft <= 0) {
             clearInterval(timerEl);
             timerEl.innerHTML = "Time's up!";
@@ -100,35 +128,39 @@ function startTimer() {
     }, 1000);
 }
 
-function answerClick (event) {
+var answerDetermination = document.getElementById('answer-determination');
+
+function answerClick(event) {
     event.preventDefault();
     var answerPicked = event.target.textContent;
     var correctAnswer = questions[currentQuestionIndex].correct;
     if (answerPicked !== correctAnswer) {
         adjustTime(-10);
         answerDetermination.textContent = "Bummer!";
-        
+
     } else {
-        (answerClick === correctAnswer)
+        // (answerClick === correctAnswer)
         answerDetermination.textContent = "Awesome!";
-        
+// currentQuestionIndex++;
         userScore++;
+       
     }
-    if (currentQuestionIndex >= questions.length -1) {
-      
+    if (currentQuestionIndex >= questions.length - 1) {
+
         endGame();
     } else {
-        startPage(questions[currentQuestionIndex])
+        // startPage(questions[currentQuestionIndex])
         currentQuestionIndex++;
+        showQuestion();
     };
 }
 startButton.addEventListener('click', startPage)
 
-var test = function (event) {
-    event.preventDefault();
-    resetDisplay();
-    startPage(questions[currentQuestionIndex]);
-}
+// var test = function (event) {
+//     event.preventDefault();
+//     resetDisplay();
+//     startPage(questions[currentQuestionIndex]);
+// }
 function resetDisplay() {
     quizContainerEl.innerHTML = "";
     document.querySelector('.start').style.display = 'none';
@@ -158,7 +190,7 @@ var endingPage = document.createElement('h2');
 var empty = document.getElementById('answer-determination');
 empty.appendChild(endingPage);
 answerDetermination.innerHTML = "";
-endingPage.innerHTML="WOW! Way to go! Your final score is " + userScore + ". Enter your initials below to save it to the high scores list.";
+endingPage.innerHTML = "WOW! Way to go! Your final score is " + userScore + ". Enter your initials below to save it to the high scores list.";
 
 var initialsInput = document.createElement('input');
 empty.appendChild(initialsInput);
@@ -176,7 +208,7 @@ var storeData = (...input) => {
 storeData(initialsInput.value, userScore);
 
 var playAgain = document.createElement('button');
-playAgain.textContent='Play Again?';
+playAgain.textContent = 'Play Again?';
 empty.appendChild(playAgain);
 
 playAgain.addEventListener('click', () => {
@@ -185,9 +217,9 @@ playAgain.addEventListener('click', () => {
 
 initialsInput.addEventListener('submit', endGame);
 
-function getInitials () {
+function getInitials() {
     submitBtn.addEventListener('click', function (event) {
         event.preventDefault;
     })
 }
-startButton.addEventListener('click', test)
+// startButton.addEventListener('click', test)
