@@ -55,6 +55,7 @@ var quizContainerEl = document.querySelector('#quiz-container');
 var timerCount;
 var shuffledQuestions;
 var currentQuestionIndex = 0;
+var userScore = 0;
 
 
 startButton.addEventListener('click', startPage);
@@ -101,33 +102,32 @@ function startPage() {
     quizContainerEl.appendChild(answerC);
     quizContainerEl.appendChild(answerD);
 
-    
+
 }
-var correctAnswer = questions[currentQuestionIndex].correct
+// var correctAnswer = questions[currentQuestionIndex].correct
 var answerDetermination = document.getElementById('answer-determination')
 
 var answerClick = function (event) {
     event.preventDefault();
     var answerPicked = event.target.textContent;
-    correctAnswer = questions[currentQuestionIndex].correct;
+    var correctAnswer = questions[currentQuestionIndex].correct;
     if (answerPicked !== correctAnswer) {
         adjustTime(-10);
         answerDetermination.textContent = "Bummer!";
         currentQuestionIndex++;
     } else {
         (answerClick === correctAnswer)
-        currentQuestionIndex++;
         answerDetermination.textContent = "Awesome!";
+        currentQuestionIndex++;
+        userScore++;
         endGame();
-        {
-            startPage(questions[currentQuestionIndex]);
-        }
     }
     if (currentQuestionIndex >= questions.length) {
         endGame();
     } else {
         startPage(questions[currentQuestionIndex])
     };
+
 }
 
 var test = function (event) {
@@ -135,14 +135,46 @@ var test = function (event) {
     resetDisplay();
     getQuestion(questions[currentQuestionIndex]);
 }
- function resetDisplay() {
-    quizContainerEl.innerHTML="";
-    document.querySelector('.start').style.display='none';
- }
+function resetDisplay() {
+    quizContainerEl.innerHTML = "";
+    document.querySelector('.start').style.display = 'none';
+}
+var highScoresView = document.getElementById('high-score');
 
- var initials = '';
- function endGame() {
+function highScores() {
+    var data = localStorage.getItem('object');
+    var getData = JSON.parse(data);
+    var name = getData.name;
+    var score = getData.score;
+    quizContainerEl.innerHTML = '';
+    quizContainerEl.inn = name + "" + score;
+}
+highScoresView.addEventListener('click', () => {
+    highScores();
+})
+var initials = '';
+function endGame() {
     resetDisplay();
     timerEl.textContent = '';
     clearInterval()
- }
+}
+var endingPage = document.createElement('h2');
+var empty = document.getElementById('answer-determination');
+empty.appendChild(endingPage);
+answerDetermination.innerHTML = "";
+endGame.innerHTML="WOW! Way to go! Your final score is " + userScore + ". Enter your initials below to save it to the high scores list.";
+
+var initialsInput = document.createElement('input');
+empty.appendChild(initialsInput);
+
+var submitBtn = document.createElement('button');
+submitBtn.textContent = 'Submit';
+empty.appendChild(submitBtn);
+
+submitBtn.addEventListener('click', initialsInput);
+
+var storeData = (...input) => {
+    var data = JSON.stringify("name:", input[0], "score:", input[1])
+    localStorage.setItem('object', data);
+}
+
