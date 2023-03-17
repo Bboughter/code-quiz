@@ -51,31 +51,26 @@ var startButton = document.getElementById("start-button");
 var startQuiz = document.querySelector(".start");
 var timerEl = document.getElementById("timer");
 var timeLeft = 60;
-var questionContainerEl = document.querySelector('#quiz-container');
+var quizContainerEl = document.querySelector('#quiz-container');
 var timerCount;
 var shuffledQuestions;
 var currentQuestionIndex;
 
-function startPage() {
-    currentQuestionIndex = 0;
-    start.setAttribute('style','display:content');
-    startButton.setAttribute('style', 'display:none');
-
-    startTimer();
-    startGame();
-   }
-
-function startTimer () {
-    timerInterval=setInterval(function() {
-        timerCount--;
-        timerEl.textContent = timerCount;
-        if (timerCount === 0) {
-            endGame();
-        }
-    }, 1000);
-}
-
+startButton.addEventListener('click', startGame);
 function startGame() {
     
+    startButton.setAttribute('style', 'display:none');
+    quizContainerEl.setAttribute('style', 'display:content');
+    startQuiz.setAttribute('style','display:none')
 }
-startButton.addEventListener('click', startGame)
+var startTimer = setInterval (() =>{
+    timerEl.textContent = 'Time remaining:' + timeLeft;
+    timeLeft--;
+
+    if (timeLeft <= 0) {
+        clearInterval(timerEl);
+        timerEl.innerHTML= "Time's up!";
+        endGame();
+    }
+    }, 1000);
+// startButton.addEventListener('click', startGame)
