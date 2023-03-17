@@ -56,7 +56,7 @@ var timerCount;
 var shuffledQuestions;
 var currentQuestionIndex = 0;
 
-startButton.addEventListener('click', startTimer);
+
 startButton.addEventListener('click', startPage);
 
 
@@ -78,24 +78,21 @@ function startPage() {
     startQuiz.setAttribute('style', 'display:none')
 
     startTimer();
-}
- 
-{
     quizContainerEl.style.display = "block";
     quizContainerEl.innerHTML = '';
     var questionHeader = document.createElement("h2");
-    questionHeader.textContent = questions.question;
+    questionHeader.textContent = questions[currentQuestionIndex].question;
     var answerA = document.createElement('button');
-    answerA.textContent = questions.a;
+    answerA.textContent = questions[currentQuestionIndex].a;
     answerA.addEventListener('click', answerClick);
     var answerB = document.createElement('button');
-    answerB.textContent = questions.b;
+    answerB.textContent = questions[currentQuestionIndex].b;
     answerB.addEventListener('click', answerClick);
     var answerC = document.createElement('button');
-    answerC.textContent = questions.c;
+    answerC.textContent = questions[currentQuestionIndex].c;
     answerC.addEventListener('click', answerClick);
     var answerD = document.createElement('button');
-    answerD.textContent = questions.d;
+    answerD.textContent = questions[currentQuestionIndex].d;
     answerD.addEventListener('click', answerClick);
 
     quizContainerEl.appendChild(questionHeader);
