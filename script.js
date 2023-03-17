@@ -50,13 +50,15 @@ var questions = [{
 var startButton = document.getElementById("start-button");
 var startQuiz = document.querySelector(".start");
 var timerEl = document.getElementById("timer");
+
 var timeLeft = 60;
-var quizContainerEl = document.querySelector('.btn-grid');
+var quizContainerEl = document.querySelector('#qustion-container');
 var timerCount;
 var shuffledQuestions;
 var currentQuestionIndex;
 
-startButton.addEventListener('click', startGame);
+startButton.addEventListener('click', startTimer);
+startButton.addEventListener('click', startPage);
 
 
 function startTimer() { setInterval (() =>{
@@ -70,9 +72,32 @@ function startTimer() { setInterval (() =>{
     }
     }, 1000);
 }
-function startGame() {
+function startPage() {
       
     startButton.setAttribute('style', 'display:none');
     startQuiz.setAttribute('style','display:none')
     startTimer();
+}
+function startGame(question) {
+    quizContainerEl.innerHTML = '';
+    var questionHeader = document.createElement("h2");
+    questionHeader.textContent = question.question;
+    var answerA = document.createElement('button');
+    answerA.textContent = question.a;
+    answerA.addEventListener('click', answerClick);
+    var answerB= document.createElement('button');
+    answerB.textContent = question.b;
+    answerB.addEventListener('click', answerClick);
+    var answerC = document.createElement('button');
+    answerC.textContent = question.c;
+    answerC.addEventListener('click', answerClick);
+    var answerD = document.createElement('button');
+    answerD.textContent = question.d;
+    answerD.addEventListener('click', answerClick);
+
+    quizContainerEl.appendChild(questionHeader);
+    quizContainerEl.appendChild(answerA);
+    quizContainerEl.appendChild(answerB);
+    quizContainerEl.appendChild(answerC);
+    quizContainerEl.appendChild(answerD);
 }
