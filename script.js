@@ -4,7 +4,7 @@ var questions = [{
     b: "2. Hyper Tool Markup List",
     c: "3. Hungry Total Meat Lover",
     d: "4. Hyper Text Manager Language",
-    correct: "1. Hyper Text Markup Language",
+    correct: "Hyper Text Markup Language",
 },
 {
     question: "Choose the correct HTML element to define important text.",
@@ -12,7 +12,7 @@ var questions = [{
     b: "2. <massive>",
     c: "3. <strong>",
     d: "4. <hulk>",
-    correct: "3. <strong>",
+    correct: "<strong>",
 },
 {
     question: "The *[asterik symbol] is called",
@@ -20,7 +20,7 @@ var questions = [{
     b: "2. Universal Selector",
     c: "3. General Selector",
     d: "4. Star",
-    correct: "2. Universal Selector",
+    correct: "Universal Selector",
 },
 {
     question: "Which code removes the underline from links?",
@@ -28,7 +28,7 @@ var questions = [{
     b: "2. text-decoration: none",
     c: "3. text-decoration: hide",
     d: "4. text-underline: none",
-    correct: "2. text-decoration: none",
+    correct: "text-decoration: none",
 },
 {
     question: "How do you write 'Hello World!' in an alert box?",
@@ -36,7 +36,7 @@ var questions = [{
     b: "2. alertBox('Hello World!')",
     c: "3. noticeMe('Hello World!')",
     d: "4. alert('Hello World!')",
-    correct: "4. alert('Hello World!')",
+    correct: "alert('Hello World!')",
 },
 {
     question: "How do you declare a JavaScript variable?",
@@ -44,55 +44,58 @@ var questions = [{
     b: "2. v carName",
     c: "3. variable carName",
     d: "4. create carName",
-    correct: "1. var carName",
+    correct: "var carName",
 }
 ];
 var startButton = document.getElementById("start-button");
 var startQuiz = document.querySelector(".start");
 var timerEl = document.getElementById("timer");
-
 var timeLeft = 60;
-var quizContainerEl = document.querySelector('#qustion-container');
+var quizContainerEl = document.querySelector('.quiz-container');
 var timerCount;
 var shuffledQuestions;
-var currentQuestionIndex;
+var currentQuestionIndex = 0;
 
 startButton.addEventListener('click', startTimer);
 startButton.addEventListener('click', startPage);
 
 
-function startTimer() { setInterval (() =>{
-    timerEl.textContent = 'Time remaining:' + timeLeft;
-    timeLeft--;
+function startTimer() {
+    setInterval(() => {
+        timerEl.textContent = 'Time remaining:' + timeLeft;
+        timeLeft--;
 
-    if (timeLeft <= 0) {
-        clearInterval(timerEl);
-        timerEl.innerHTML= "Time's up!";
-        endGame();
-    }
+        if (timeLeft <= 0) {
+            clearInterval(timerEl);
+            timerEl.innerHTML = "Time's up!";
+            endGame();
+        }
     }, 1000);
 }
 function startPage() {
-      
+
     startButton.setAttribute('style', 'display:none');
-    startQuiz.setAttribute('style','display:none')
+    startQuiz.setAttribute('style', 'display:none')
+
     startTimer();
 }
-function startGame(question) {
+ 
+{
+    document.querySelector('.quiz-container').style.display = "block";
     quizContainerEl.innerHTML = '';
     var questionHeader = document.createElement("h2");
-    questionHeader.textContent = question.question;
+    questionHeader.textContent = questions.question;
     var answerA = document.createElement('button');
-    answerA.textContent = question.a;
+    answerA.textContent = questions.a;
     answerA.addEventListener('click', answerClick);
-    var answerB= document.createElement('button');
-    answerB.textContent = question.b;
+    var answerB = document.createElement('button');
+    answerB.textContent = questions.b;
     answerB.addEventListener('click', answerClick);
     var answerC = document.createElement('button');
-    answerC.textContent = question.c;
+    answerC.textContent = questions.c;
     answerC.addEventListener('click', answerClick);
     var answerD = document.createElement('button');
-    answerD.textContent = question.d;
+    answerD.textContent = questions.d;
     answerD.addEventListener('click', answerClick);
 
     quizContainerEl.appendChild(questionHeader);
@@ -100,4 +103,49 @@ function startGame(question) {
     quizContainerEl.appendChild(answerB);
     quizContainerEl.appendChild(answerC);
     quizContainerEl.appendChild(answerD);
+
+    
 }
+var correctAnswer = questions[currentQuestionIndex].correct
+var answerDetermination = document.getElementById('answer-determination')
+
+var answerClick = function (event) {
+    event.preventDefault();
+    var answerPicked = event.target.textContent;
+    correctAnswer = questions[currentQuestionIndex].correct;
+    if (answerPicked !== correctAnswer) {
+        adjustTime(-10);
+        answerDetermination.textContent = "Bummer!";
+        currentQuestionIndex++;
+    } else {
+        (answerClick === correctAnswer)
+        currentQuestionIndex++;
+        answerDetermination.textContent = "Awesome!";
+        endGame();
+        {
+            startPage(questions[currentQuestionIndex]);
+        }
+    }
+    if (currentQuestionIndex >= questions.length) {
+        endGame();
+    } else {
+        startPage(questions[currentQuestionIndex])
+    };
+}
+
+var test = function (event) {
+    event.preventDefault();
+    resetDisplay();
+    getQuestion(questions[currentQuestionIndex]);
+}
+ function resetDisplay() {
+    quizContainerEl.innerHTML="";
+    startPage.setAttribute('style', 'display: none');
+ }
+
+ var initials = '';
+ function endGame() {
+    resetDisplay();
+    timerEl.textContent = '';
+    clearInterval()
+ }

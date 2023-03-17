@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <button class="high-score" id="high-score">Highscores</button>
+        <button id="high-score">Highscores</button>
         <div id="timer"></div>
     </header>
     <main>
@@ -25,13 +25,15 @@
             <button id="start-button">Start</button>
         </section>
         <section>
-            <div id="quiz-container" class="btn-grid">
+            <div class="quiz-container"></div>
+            <div class="btn-grid">
         </section>
         <section id="end-game">
             <form id="score">
                 <label type="initials">Enter Intitials:</label><br>
                 <button type="submit" id="submit">Submit</button>
             </form>
+        <div id='answer-determination'> </div>
     </main>
     <script src="./script.js"></script>
 </body>
