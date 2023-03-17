@@ -57,22 +57,6 @@ var shuffledQuestions;
 var currentQuestionIndex = 0;
 var userScore = 0;
 
-
-startButton.addEventListener('click', startPage);
-
-
-function startTimer() {
-    setInterval(() => {
-        timerEl.textContent = 'Time remaining:' + timeLeft;
-        timeLeft--;
-
-        if (timeLeft <= 0) {
-            clearInterval(timerEl);
-            timerEl.innerHTML = "Time's up!";
-            endGame();
-        }
-    }, 1000);
-}
 function startPage() {
 
     startButton.setAttribute('style', 'display:none');
@@ -101,39 +85,49 @@ function startPage() {
     quizContainerEl.appendChild(answerB);
     quizContainerEl.appendChild(answerC);
     quizContainerEl.appendChild(answerD);
-
-
 }
-// var correctAnswer = questions[currentQuestionIndex].correct
-var answerDetermination = document.getElementById('answer-determination')
 
-var answerClick = function (event) {
+function startTimer() {
+    setInterval(() => {
+        timerEl.textContent = 'Time remaining:' + timeLeft;
+        timeLeft--;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerEl);
+            timerEl.innerHTML = "Time's up!";
+            endGame();
+        }
+    }, 1000);
+}
+
+function answerClick (event) {
     event.preventDefault();
     var answerPicked = event.target.textContent;
     var correctAnswer = questions[currentQuestionIndex].correct;
     if (answerPicked !== correctAnswer) {
         adjustTime(-10);
         answerDetermination.textContent = "Bummer!";
-        currentQuestionIndex++;
+        
     } else {
         (answerClick === correctAnswer)
         answerDetermination.textContent = "Awesome!";
-        currentQuestionIndex++;
+        
         userScore++;
-        endGame();
     }
-    if (currentQuestionIndex >= questions.length) {
+    if (currentQuestionIndex >= questions.length -1) {
+      
         endGame();
     } else {
         startPage(questions[currentQuestionIndex])
+        currentQuestionIndex++;
     };
-
 }
+startButton.addEventListener('click', startPage)
 
 var test = function (event) {
     event.preventDefault();
     resetDisplay();
-    getQuestion(questions[currentQuestionIndex]);
+    startPage(questions[currentQuestionIndex]);
 }
 function resetDisplay() {
     quizContainerEl.innerHTML = "";
@@ -152,6 +146,7 @@ function highScores() {
 highScoresView.addEventListener('click', () => {
     highScores();
 })
+
 var initials = '';
 function endGame() {
     resetDisplay();
@@ -163,7 +158,7 @@ var endingPage = document.createElement('h2');
 var empty = document.getElementById('answer-determination');
 empty.appendChild(endingPage);
 answerDetermination.innerHTML = "";
-endGame.innerHTML="WOW! Way to go! Your final score is " + userScore + ". Enter your initials below to save it to the high scores list.";
+endingPage.innerHTML="WOW! Way to go! Your final score is " + userScore + ". Enter your initials below to save it to the high scores list.";
 
 var initialsInput = document.createElement('input');
 empty.appendChild(initialsInput);
@@ -187,3 +182,12 @@ empty.appendChild(playAgain);
 playAgain.addEventListener('click', () => {
     location.reload();
 });
+
+initialsInput.addEventListener('submit', endGame);
+
+function getInitials () {
+    submitBtn.addEventListener('click', function (event) {
+        event.preventDefault;
+    })
+}
+startButton.addEventListener('click', test)
