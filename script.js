@@ -68,28 +68,6 @@ function startPage() {
 
     startTimer();
     showQuestion();
-    // quizContainerEl.style.display = "block";
-    // quizContainerEl.innerHTML = '';
-    // var questionHeader = document.createElement("h2");
-    // questionHeader.textContent = questions[currentQuestionIndex].question;
-    // var answerA = document.createElement('button');
-    // answerA.textContent = questions[currentQuestionIndex].a;
-    // answerA.addEventListener('click', answerClick);
-    // var answerB = document.createElement('button');
-    // answerB.textContent = questions[currentQuestionIndex].b;
-    // answerB.addEventListener('click', answerClick);
-    // var answerC = document.createElement('button');
-    // answerC.textContent = questions[currentQuestionIndex].c;
-    // answerC.addEventListener('click', answerClick);
-    // var answerD = document.createElement('button');
-    // answerD.textContent = questions[currentQuestionIndex].d;
-    // answerD.addEventListener('click', answerClick);
-
-    // quizContainerEl.appendChild(questionHeader);
-    // quizContainerEl.appendChild(answerA);
-    // quizContainerEl.appendChild(answerB);
-    // quizContainerEl.appendChild(answerC);
-    // quizContainerEl.appendChild(answerD);
 }
 function showQuestion() {
     quizContainerEl.style.display = "block";
@@ -116,10 +94,10 @@ function showQuestion() {
     quizContainerEl.appendChild(answerD);
 }
 function startTimer() {
-    setInterval(function()  {
+    setInterval(function () {
         timerEl.textContent = 'Time remaining:' + timeLeft;
         timeLeft--;
-console.log(timeLeft);
+        console.log(timeLeft);
         if (timeLeft <= 0) {
             clearInterval(timerEl);
             timerEl.innerHTML = "Time's up!";
@@ -139,28 +117,21 @@ function answerClick(event) {
         answerDetermination.textContent = "Bummer!";
 
     } else {
-        // (answerClick === correctAnswer)
         answerDetermination.textContent = "Awesome!";
-// currentQuestionIndex++;
         userScore++;
-       
+
     }
     if (currentQuestionIndex >= questions.length - 1) {
 
         endGame();
     } else {
-        // startPage(questions[currentQuestionIndex])
         currentQuestionIndex++;
         showQuestion();
     };
 }
 startButton.addEventListener('click', startPage)
 
-// var test = function (event) {
-//     event.preventDefault();
-//     resetDisplay();
-//     startPage(questions[currentQuestionIndex]);
-// }
+
 function resetDisplay() {
     quizContainerEl.innerHTML = "";
     document.querySelector('.start').style.display = 'none';
@@ -180,6 +151,7 @@ highScoresView.addEventListener('click', () => {
 })
 
 var initials = '';
+
 function endGame() {
     resetDisplay();
     timerEl.textContent = '';
@@ -222,4 +194,4 @@ function getInitials() {
         event.preventDefault;
     })
 }
-// startButton.addEventListener('click', test)
+
